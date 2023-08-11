@@ -3,7 +3,7 @@
 
 # include "mlx.h"
 # include "ftmlx.h"
-# include "utils.h"
+# include "mlx_utils.h"
 # include "color.h"
 
 void	put_pixel(t_mlx *mlx, int x, int y, int color);

@@ -12,7 +12,10 @@ SRC = main.c \
 		hook.c \
 		image.c \
 		initialize.c \
-		utils.c
+		utils.c \
+		ray.c \
+		scene.c \
+		canvas.c
 
 OBJ = $(SRC:.c=.o)
 SRC_FILE = $(addprefix $(SRC_DIR), $(SRC))

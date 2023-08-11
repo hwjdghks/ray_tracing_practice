@@ -1,4 +1,6 @@
 #include "image.h"
+#include "scene.h"
+#include "trace.h"
 
 void	put_pixel(t_mlx *mlx, int x, int y, int color)
 {
@@ -14,14 +16,26 @@ void	put_pixel(t_mlx *mlx, int x, int y, int color)
 
 void	put_image(t_mlx *mlx)
 {
-	int	canvas_width;
-	int	canvas_height;
+	double		u;
+	double		v;
+	t_color3	pcolor;
+	t_canvas	canv;
+	t_camera	cam;
+	t_ray		ray;
 
-	canvas_width = 256;
-	canvas_height = 256;
-	for (int h = 255; h > 0; h--)
-		for (int w = 0; w < canvas_width; w++)
-			put_pixel(mlx, w, h, color_get_trgb(0, w, h, 63));
+	//Scene setting;
+	canv = canvas(400, 300);
+	cam = camera(&canv, point3(0, 0, 0));
+	for (int h = canv.height - 1; h >= 0; h--) {
+		for (int w = 0; w < canv.width; w++) {
+			u = (double)w / (canv.width - 1);
+            v = (double)h / (canv.height - 1);
+			//ray from camera origin to pixel
+            ray = ray_primary(&cam, u, v);
+            pcolor = ray_color(&ray);
+			put_pixel(mlx, w, h, color_get_trgb(0, pcolor.r, pcolor.g, pcolor.b));
+		}
+	}
 	mlx_put_image_to_window(mlx->ptr.mlx_ptr, \
 							mlx->ptr.win_ptr, \
 							mlx->ptr.img_ptr, \

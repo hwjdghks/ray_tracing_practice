@@ -3,7 +3,7 @@
 
 # include "mlx.h"
 # include "ftmlx.h"
-# include "utils.h"
+# include "mlx_utils.h"
 # include "hook.h"
 
 void	*init_all(t_mlx *mlx);

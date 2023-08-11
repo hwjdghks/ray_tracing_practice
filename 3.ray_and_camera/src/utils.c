@@ -97,6 +97,23 @@ t_vec3	vmult(t_vec3 vec, double t)
 	return (vec);
 }
 
+t_color3	cplus(t_color3 c1, t_color3 c2)
+{
+	// cmult이후 해당 함수 진입 시 255 초과 가능성 존재
+	c1.r += c2.r;
+	c1.g += c2.g;
+	c1.b += c2.b;
+	return (c1);
+}
+
+t_color3	cmult(t_color3 color, double t)
+{
+	color.r *= t;
+	color.g *= t;
+	color.b *= t;
+	return (color);
+}
+
 // 벡터 축 값끼리 곱연산
 t_vec3	vmult_(t_vec3 vec, t_vec3 vec2)
 {
