@@ -38,17 +38,14 @@ t_ray	ray_primary(t_camera *cam, double u, double v)
 //광선이 최종적으로 얻게된 픽셀의 색상 값을 리턴.
 t_color3	ray_color(t_ray *r, t_sphere *sphere)
 {
-	double	t;
-	t_vec3	normal;
+	double			t;
+	t_hit_record	rec;
 	t_color3 color1, color2;
 
-	t = hit_sphere(sphere, r);
-	if (t > 0.0)
-	{
-		// 배경과 마찬가지로 위아래가 뒤집어지는 문제 발생. 아래 두번째 EDIT 참조
-		normal = vunit(vminus(ray_at(r, t), sphere->center));
-		return (cmult(vtoc(vec3(normal.x + 1, normal.y + 1, normal.z + 1)), 0.5));
-	}
+	rec.tmin = 0;
+	rec.tmax = INFINITY;
+	if (hit_sphere(sphere, r, &rec))
+		return (vtoc(vmult(vplus(rec.normal, vec3(1, 1, 1)), 0.5)));
 	t = 0.5 * (r->dir.y + 1.0);
 	color1.r = 255; 
 	color1.g = 255;
